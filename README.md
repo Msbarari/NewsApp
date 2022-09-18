@@ -1,6 +1,6 @@
 # NewsApp
 
-Done With Clean Architict RXSWIFT & MVVMC
+Done With Clean Architict, RXSWIFT & MVVM-C
 
 I tried to Implement it by Clean Architect By divid The Project Into Layers
 
