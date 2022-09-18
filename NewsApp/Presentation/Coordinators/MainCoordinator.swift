@@ -2,7 +2,7 @@
 //  MainCoordinator.swift
 //  NewsApp
 //
-//  Created by DG on 16/09/2022.
+//  Created by DG on 17/09/2022.
 //
 
 import Foundation
@@ -39,7 +39,7 @@ class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate  {
     func start() {
         
         let vc = NewsViewController.instantiate(.MAIN)
-        
+        vc.viewModel = NewsViewModel(newsProvider: NewsProvider())
         navigationController = UINavigationController()
         navigationController.delegate = self
         vc.coordinator = self
