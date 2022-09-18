@@ -29,24 +29,23 @@ extension Observable where Element == (HTTPURLResponse, Data) {
                 }catch let jsonError as NSError
                 {
                     let apiErrorMessage: ApiErrorMessage
-                    apiErrorMessage = ApiErrorMessage(status: "Parsing Error", code: nil, message: jsonError.localizedDescription)
+                    apiErrorMessage = ApiErrorMessage(status: "Parsing Error", code: nil, message: jsonError.localizedDescription, results: nil)
                     return .failure(apiErrorMessage)
                 }
                 
             default:
-                // otherwise try
-                let apiErrorMessage: ApiErrorMessage
+                var object : ApiErrorMessage
+                var _ : String?
                 do{
-                    // to decode an expected error
-                    apiErrorMessage = try JSONDecoder().decode(ApiErrorMessage.self, from: data)}
-                catch _ {
-                    // or not. (this occurs if the API failed or doesn't return a handled exception)
-                    //                apiErrorMessage = BackendErrorMessageModel(status: "failed", text: "Server Error", msgWithLanguage: "Server Error")
-                    print("Response Error ---------- \n\(String(describing: String(data: data, encoding: .utf8)))")
-                    apiErrorMessage = ApiErrorMessage(status: "System Error", code: nil, message: "")
-                    
+                    object  = try JSONDecoder().decode(ApiErrorMessage.self, from: data)
+                    return .failure(object)
+                }catch let jsonError as NSError
+                {
+                    let apiErrorMessage: ApiErrorMessage
+                    apiErrorMessage = ApiErrorMessage(status: "Parsing Error", code: nil, message: jsonError.localizedDescription,results: nil)
+                    return .failure(apiErrorMessage)
                 }
-                return .failure(apiErrorMessage)
+
             }
         }
     }

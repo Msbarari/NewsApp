@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="singleLineEtched" rowHeight="200" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="8Ey-Y6-Z1r">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="154" width="414" height="708"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NewsCell" id="vTB-gd-FMg" customClass="NewsCellTableViewCell" customModule="NewsApp" customModuleProvider="target">
@@ -82,17 +82,41 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ICH-C8-PEp">
+                                <rect key="frame" x="0.0" y="67" width="414" height="32"/>
+                                <segments>
+                                    <segment title="US"/>
+                                    <segment title="AE"/>
+                                    <segment title="JO"/>
+                                </segments>
+                            </segmentedControl>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="V03-W8-BFQ">
+                                <rect key="frame" x="0.0" y="103" width="414" height="32"/>
+                                <segments>
+                                    <segment title="Sports"/>
+                                    <segment title="Business"/>
+                                    <segment title="Health"/>
+                                </segments>
+                            </segmentedControl>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="j0A-Nd-hoW"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="8Ey-Y6-Z1r" firstAttribute="top" secondItem="j0A-Nd-hoW" secondAttribute="top" id="HEv-Rm-5fb"/>
+                            <constraint firstItem="8Ey-Y6-Z1r" firstAttribute="top" secondItem="V03-W8-BFQ" secondAttribute="bottom" constant="20" id="1sA-Uv-HlT"/>
+                            <constraint firstItem="j0A-Nd-hoW" firstAttribute="trailing" secondItem="V03-W8-BFQ" secondAttribute="trailing" id="FDd-I1-YTs"/>
+                            <constraint firstItem="j0A-Nd-hoW" firstAttribute="trailing" secondItem="ICH-C8-PEp" secondAttribute="trailing" id="FL3-PY-3bU"/>
+                            <constraint firstItem="V03-W8-BFQ" firstAttribute="top" secondItem="ICH-C8-PEp" secondAttribute="bottom" constant="5" id="GKe-dp-U4h"/>
                             <constraint firstItem="j0A-Nd-hoW" firstAttribute="bottom" secondItem="8Ey-Y6-Z1r" secondAttribute="bottom" id="PUT-DU-OTd"/>
+                            <constraint firstItem="V03-W8-BFQ" firstAttribute="leading" secondItem="j0A-Nd-hoW" secondAttribute="leading" id="YjZ-Bh-I9a"/>
                             <constraint firstItem="8Ey-Y6-Z1r" firstAttribute="leading" secondItem="j0A-Nd-hoW" secondAttribute="leading" id="jcA-1N-MEN"/>
+                            <constraint firstItem="ICH-C8-PEp" firstAttribute="leading" secondItem="j0A-Nd-hoW" secondAttribute="leading" id="pmi-xT-Nn9"/>
                             <constraint firstItem="j0A-Nd-hoW" firstAttribute="trailing" secondItem="8Ey-Y6-Z1r" secondAttribute="trailing" id="rSf-uK-uml"/>
+                            <constraint firstItem="ICH-C8-PEp" firstAttribute="top" secondItem="j0A-Nd-hoW" secondAttribute="top" constant="23" id="sgS-Qd-mtx"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="categorySegmant" destination="V03-W8-BFQ" id="je8-U5-crL"/>
+                        <outlet property="countrySegment" destination="ICH-C8-PEp" id="m8E-4C-CeE"/>
                         <outlet property="tableView" destination="8Ey-Y6-Z1r" id="lNM-xz-IKH"/>
                     </connections>
                 </viewController>

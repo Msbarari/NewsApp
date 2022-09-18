@@ -25,6 +25,7 @@ struct News : Codable
     {
         let articles =   response.results.map({ responseArticle in
             Articale(author: responseArticle.creator?[0], title: responseArticle.title, articleDescription: responseArticle.resultDescription, url: nil, urlToImage: responseArticle.imageURL, publishedAt: responseArticle.pubDate, content: responseArticle.content,providerName: "NewsDataApi")
+
         })
         return News(page: response.nextPage ?? 0, articales: articles)
     }

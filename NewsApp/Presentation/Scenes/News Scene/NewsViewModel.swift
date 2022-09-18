@@ -10,11 +10,42 @@ import Foundation
 import Foundation
 import RxSwift
 import RxRelay
-
+enum Country:Int {
+    case ALL
+    case US
+    case AE
+    case JO
+    
+    public var description: String? {
+        switch self.rawValue {
+        case 0: return "us"
+        case 1: return "ae"
+        case 2: return "jo"
+        default: return nil
+        }
+    }
+}
+enum Category:Int {
+    case ALL
+    case SPORT
+    case BUSSNICE
+    case HEALTH
+    
+    public var description: String? {
+        switch self.rawValue {
+        case 0: return "sports"
+        case 1: return "business"
+        case 2: return "health"
+        default: return nil
+        }
+    }
+}
 class NewsViewModel
 {
     struct Input {
         let page: BehaviorRelay<Int> = BehaviorRelay(value: 0)
+        let countryIndex: BehaviorRelay<Int> = BehaviorRelay(value: 0)
+        let categoryIndex: BehaviorRelay<Int> = BehaviorRelay(value: 0)
         
     }
     
@@ -27,7 +58,7 @@ class NewsViewModel
         let isLoadingSpinnerAvaliable = PublishSubject<Bool>()
     }
     
-    var newsProvider : NewsProvider
+    var newsProvider : NewsProviderProtocol
     
     var disposeBag  = DisposeBag()
     var input : Input = Input()
@@ -39,7 +70,7 @@ class NewsViewModel
     private var isRefreshRequstStillResume = false
     
     
-    init(newsProvider : NewsProvider) {
+    init(newsProvider : NewsProviderProtocol) {
         self.newsProvider = newsProvider
         bind()
     }
@@ -72,8 +103,9 @@ class NewsViewModel
             self.output.isLoadingSpinnerAvaliable.onNext(false)
         }
         
-        
-        self.newsProvider.getNews(page: page).subscribe {[weak self] results in
+        let countryIndex = self.input.countryIndex.value
+        let categoryIndex = self.input.countryIndex.value
+        self.newsProvider.getNews(country: Country.init(rawValue: countryIndex)?.description, category: Category.init(rawValue: categoryIndex)?.description, page: page).subscribe {[weak self] results in
             for result in results
             {
                 switch result
@@ -92,6 +124,7 @@ class NewsViewModel
                 }
             }
         }   onError: {[weak self] error in
+            
             self?.requestEnded()
             
             

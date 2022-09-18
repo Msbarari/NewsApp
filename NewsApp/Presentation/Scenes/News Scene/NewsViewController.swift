@@ -14,10 +14,13 @@ import SDWebImage
 class NewsViewController: UIViewController {
     
     weak var coordinator : MainCoordinator?
+    @IBOutlet weak var categorySegmant: UISegmentedControl!
+    @IBOutlet weak var countrySegment: UISegmentedControl!
     
     @IBOutlet weak var tableView: UITableView!
     var viewModel : NewsViewModel!
     var disposeBag  = DisposeBag()
+    
     
     private lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
@@ -68,11 +71,11 @@ class NewsViewController: UIViewController {
     
     func bindViewModel()  {
                 
-        viewModel.output.showError.subscribe { error in
-            let alert = UIAlertController(title: "error\n \(String(describing: error.element?.status))", message: error.element?.message, preferredStyle: .alert)
+        viewModel.output.showError.subscribe {[weak self] error in
+            let alert = UIAlertController(title: "error\n \(String(describing: error.element?.status))", message: error.element?.messageDescription, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
             }))
-            self.present(alert, animated: true, completion: nil)
+            self?.present(alert, animated: true, completion: nil)
         }.disposed(by: disposeBag)
         
         self.viewModel.output.articles.bind(to: tableView.rx.items(cellIdentifier: "NewsCell", cellType: NewsCellTableViewCell.self))
@@ -92,7 +95,21 @@ class NewsViewController: UIViewController {
             }
         }
         .disposed(by: disposeBag)
+        countrySegment.rx.selectedSegmentIndex.bind(to: self.viewModel.input.countryIndex).disposed(by: disposeBag)
+        categorySegmant.rx.selectedSegmentIndex.bind(to: self.viewModel.input.categoryIndex).disposed(by: disposeBag)
         
+        countrySegment.rx.selectedSegmentIndex.subscribe (onNext: {[weak self] index in
+            self?.viewModel.input.page.accept(0)
+            self?.viewModel.output.articles.accept([])
+            self?.refreshControlTriggered()
+            
+        }).disposed(by: disposeBag)
+        categorySegmant.rx.selectedSegmentIndex.subscribe (onNext: {[weak self] index in
+            self?.viewModel.input.page.accept(0)
+            self?.viewModel.output.articles.accept([])
+            self?.refreshControlTriggered()
+        }).disposed(by: disposeBag)
+        refreshControlTriggered()
     }
     
     @objc private func refreshControlTriggered() {

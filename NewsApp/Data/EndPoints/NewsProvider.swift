@@ -9,8 +9,12 @@ import Foundation
 import RxSwift
 import RxRelay
 
+protocol NewsProviderProtocol
+{
+    func getNews(country : String?,category:String?,page :Int) -> Observable<[ApiResult<News,ApiErrorMessage>]>
+}
 
-struct NewsProvider
+struct NewsProvider : NewsProviderProtocol
 {
     var network: Network
     
@@ -20,16 +24,16 @@ struct NewsProvider
         network = Network()
     }
     
-    func getNews(page :Int) -> Observable<[ApiResult<News,ApiErrorMessage>]>  {
+    func getNews(country : String?,category:String?,page :Int) -> Observable<[ApiResult<News,ApiErrorMessage>]>  {
         
         var endPoints = [NewsEndPoint]()
-        let first = NewsAPIEndPoints.getNews(country: "us", category: "sports", query: nil, page: page, pageSize: 10)
-        let second = NewsdataEndPoint.getNews(country: "us", category: "sports", query: nil, page:page)
+        let first = NewsAPIEndPoints.getNews(country: country, category: category, query: nil, page: page, pageSize: 10)
+        let second = NewsdataEndPoint.getNews(country: country, category: category, query: nil, page:page)
         
         endPoints.append(first)
         endPoints.append(second)
         
-        return Observable.zip(mapResult(endPoints: endPoints))
+        return Observable.combineLatest(mapResult(endPoints: endPoints))
         
     }
     

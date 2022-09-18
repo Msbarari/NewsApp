@@ -25,7 +25,7 @@ enum NewsdataEndPoint: NewsEndPoint,EndPointResponse {
         return self
     }
     
-case getNews(country:String,category:String,query :String?,page : Int)
+case getNews(country:String?,category:String?,query :String?,page : Int)
 
     var httpMethod: HTTPMethod {
         switch self {
@@ -74,17 +74,20 @@ case getNews(country:String,category:String,query :String?,page : Int)
         }
     }
 
-    private func newsParameter(_ country:String,_ category:String,_ query :String?,_ page : Int) -> [String : Any]
+    private func newsParameter(_ country:String?,_ category:String?,_ query :String?,_ page : Int) -> [String : Any]
     {
         var parameters  =
              [
                  "apikey":"pub_1508e9913474fcb85d810a8f1126e1a43e04",
-                 "country":country,
-                 "category":category,
                  "page":page,
 
              ] as [String : Any]
-
+        if let country = country {
+            parameters["country"] = country
+        }
+        if let category = category {
+            parameters["category"] = category
+        }
         if let query = query {
             parameters["q"] = query
         }

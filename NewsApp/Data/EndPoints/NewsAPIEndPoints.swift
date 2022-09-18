@@ -30,7 +30,7 @@ enum NewsAPIEndPoints: NewsEndPoint,EndPointResponse {
     }
     
 
-case getNews(country:String,category:String,query :String?,page : Int,pageSize:Int)
+case getNews(country:String?,category:String?,query :String?,page : Int,pageSize:Int)
 
     var httpMethod: HTTPMethod {
         switch self {
@@ -79,18 +79,21 @@ case getNews(country:String,category:String,query :String?,page : Int,pageSize:I
         }
     }
 
-    private func newsParameter(_ country:String,_ category:String,_ query :String?,_ page : Int,_ pageSize:Int) -> [String : Any]
+    private func newsParameter(_ country:String?,_ category:String?,_ query :String?,_ page : Int,_ pageSize:Int) -> [String : Any]
     {
         var parameters  =
              [
                  "apiKey":"7664508ce07747b4a62e9cc9f589e01f",
-                 "country":country,
-                 "category":category,
                  "page":page,
                  "pageSize": pageSize
 
              ] as [String : Any]
-
+        if let country = country {
+            parameters["country"] = country
+        }
+        if let category = category {
+            parameters["category"] = category
+        }
         if let query = query {
             parameters["q"] = query
         }
