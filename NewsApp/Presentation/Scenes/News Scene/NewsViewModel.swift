@@ -105,11 +105,10 @@ class NewsViewModel
         
         let countryIndex = self.input.countryIndex.value
         let categoryIndex = self.input.countryIndex.value
-        self.newsProvider.getNews(country: Country.init(rawValue: countryIndex)?.description, category: Category.init(rawValue: categoryIndex)?.description, page: page).subscribe {[weak self] results in
-            for result in results
+        self.newsProvider.getNews(country: Country.init(rawValue: countryIndex)?.description, category: Category.init(rawValue: categoryIndex)?.description, page: page).subscribe {[weak self] result in
+
+            switch result
             {
-                switch result
-                {
                 case let .success(news) :
                     //                    self?.output.news.accept([(self?.output.news.value)! , news])
                     self?.output.articles.accept((self?.output.articles.value)! + news.articales)
@@ -122,7 +121,7 @@ class NewsViewModel
                     self?.requestEnded()
                     break
                 }
-            }
+            
         }   onError: {[weak self] error in
             
             self?.requestEnded()
