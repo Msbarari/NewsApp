@@ -44,9 +44,9 @@ class NewsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        self.title = "News"
         
         bind()
-        
         
         refreshControl.addTarget(self, action: #selector(refreshControlTriggered), for: .valueChanged)
         

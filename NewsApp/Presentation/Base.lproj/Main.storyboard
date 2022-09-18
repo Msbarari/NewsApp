@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="singleLineEtched" rowHeight="200" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="8Ey-Y6-Z1r">
-                                <rect key="frame" x="0.0" y="154" width="414" height="708"/>
+                                <rect key="frame" x="0.0" y="131" width="414" height="731"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="NewsCell" id="vTB-gd-FMg" customClass="NewsCellTableViewCell" customModule="NewsApp" customModuleProvider="target">
@@ -83,7 +83,7 @@
                                 </prototypes>
                             </tableView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ICH-C8-PEp">
-                                <rect key="frame" x="0.0" y="67" width="414" height="32"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="32"/>
                                 <segments>
                                     <segment title="US"/>
                                     <segment title="AE"/>
@@ -91,7 +91,7 @@
                                 </segments>
                             </segmentedControl>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="V03-W8-BFQ">
-                                <rect key="frame" x="0.0" y="103" width="414" height="32"/>
+                                <rect key="frame" x="0.0" y="80" width="414" height="32"/>
                                 <segments>
                                     <segment title="Sports"/>
                                     <segment title="Business"/>
@@ -111,7 +111,7 @@
                             <constraint firstItem="8Ey-Y6-Z1r" firstAttribute="leading" secondItem="j0A-Nd-hoW" secondAttribute="leading" id="jcA-1N-MEN"/>
                             <constraint firstItem="ICH-C8-PEp" firstAttribute="leading" secondItem="j0A-Nd-hoW" secondAttribute="leading" id="pmi-xT-Nn9"/>
                             <constraint firstItem="j0A-Nd-hoW" firstAttribute="trailing" secondItem="8Ey-Y6-Z1r" secondAttribute="trailing" id="rSf-uK-uml"/>
-                            <constraint firstItem="ICH-C8-PEp" firstAttribute="top" secondItem="j0A-Nd-hoW" secondAttribute="top" constant="23" id="sgS-Qd-mtx"/>
+                            <constraint firstItem="ICH-C8-PEp" firstAttribute="top" secondItem="j0A-Nd-hoW" secondAttribute="top" id="sgS-Qd-mtx"/>
                         </constraints>
                     </view>
                     <connections>
