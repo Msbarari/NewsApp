@@ -11,7 +11,6 @@ import Foundation
 import RxSwift
 import RxRelay
 enum Country:Int {
-    case ALL
     case US
     case AE
     case JO
@@ -26,7 +25,6 @@ enum Country:Int {
     }
 }
 enum Category:Int {
-    case ALL
     case SPORT
     case BUSSNICE
     case HEALTH
@@ -104,7 +102,7 @@ class NewsViewModel
         }
         
         let countryIndex = self.input.countryIndex.value
-        let categoryIndex = self.input.countryIndex.value
+        let categoryIndex = self.input.categoryIndex.value
         self.newsProvider.getNews(country: Country.init(rawValue: countryIndex)?.description, category: Category.init(rawValue: categoryIndex)?.description, page: page).subscribe {[weak self] result in
 
             switch result
